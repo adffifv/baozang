@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻宝游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>寻宝游戏</h1>
+    <div id="puzzle" class="step active">
+        <p>请解开谜题以继续：</p>
+        <p>密码：钥匙</p>
+        <input type="text" id="puzzleAnswer" placeholder="输入答案">
+        <button onclick="solvePuzzle()">提交</button>
+    </div>
+    <div id="library" class="step">
+        <p>在古老的图书馆里找到了第一个线索...</p>
+        
+        <button onclick="decodeScript()">继续</button>
+    </div>
+    <div id="sacrifice" class="step">
+        <p>解码成功! 宝藏在一座古老的神庙中，需要找到祭品才能进入...</p>
+        <p>祭品：金苹果</p>
+        <input type="text" id="sacrificeAnswer" placeholder="输入祭品名称">
+        <button onclick="findSacrifice()">提交</button>
+    </div>
+    <div id="temple" class="step">
+        <p>找到了祭品! 正在搜索神庙...</p>
+        <img src="神庙.jpg" alt="描述图片的替代文本">
+
+        <button onclick="searchTemple()">继续</button>
+    </div>
+    <div id="treasure" class="step">
+        <p>恭喜! 你找到了传说中的宝藏!</p>
+        <img src="宝藏.jpg" alt="描述图片的替代文本">
+
+    </div>
+
+    <script>
+        async function solvePuzzle() {
+            const answer = document.getElementById('puzzleAnswer').value;
+            if (answer === '钥匙') {
+                document.getElementById('puzzle').classList.remove('active');
+                document.getElementById('library').classList.add('active');
+            } else {
+                alert("谜题解答错误! 无法前进。");
+            }
+        }
+
+        async function decodeScript() {
+            document.getElementById('library').classList.remove('active');
+            document.getElementById('sacrifice').classList.add('active');
+            // 模拟异步解码过程
+            setTimeout(() => {
+                // 这里可以添加解码成功的动画效果
+                console.log("解码成功!");
+            }, 1500);
+        }
+
+        async function findSacrifice() {
+            const answer = document.getElementById('sacrificeAnswer').value;
+            if (answer === '金苹果') {
+                document.getElementById('sacrifice').classList.remove('active');
+                document.getElementById('temple').classList.add('active');
+            } else {
+                alert("祭品错误! 无法进入神庙。");
+            }
+        }
+
+        async function searchTemple() {
+            document.getElementById('temple').classList.remove('active');
+            const random = Math.random();
+            if (random < 0.5) {
+                alert("糟糕! 遇到了神庙守卫!");
+                
+
+                // 可以在这里添加失败动画或重试按钮
+            } else {
+                document.getElementById('treasure').classList.add('active');
+                // 可以在这里添加找到宝藏的动画效果
+            }
+        }
+    </script>
+</body>
+</html>
